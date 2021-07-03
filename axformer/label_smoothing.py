@@ -1,3 +1,4 @@
+import torch
 
 class LabelSmoothing(nn.Module):
     "Implement label smoothing."
@@ -20,4 +21,4 @@ class LabelSmoothing(nn.Module):
         if mask.dim() > 0:
             true_dist.index_fill_(0, mask.squeeze(), 0.0)
         self.true_dist = true_dist
-        return self.criterion(x, Variable(true_dist, requires_grad=False))
+        return self.criterion(x,torch.Tensor(true_dist, requires_grad=False))

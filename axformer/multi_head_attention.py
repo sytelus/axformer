@@ -1,4 +1,6 @@
+from torch import nn
 
+from .transformer_utils import clones, attention
 
 class MultiHeadedAttention(nn.Module):
     def __init__(self, h, d_model, dropout=0.1):

@@ -1,3 +1,7 @@
+from torch import nn
+
+from .transformer_utils import clones
+from .layer_norm import LayerNorm
 
 class Encoder(nn.Module):
     "Core encoder is a stack of N layers"

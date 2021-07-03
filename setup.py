@@ -1,28 +1,15 @@
-# Copyright (c) Microsoft Corporation.
-# Licensed under the MIT license.
-
 import setuptools, platform
 
 with open("README.md", "r", encoding='utf_8') as fh:
     long_description = fh.read()
 
 install_requires=[
-    'pystopwatch2 @ git+https://github.com/ildoonet/pystopwatch2.git',
-    'hyperopt', #  @ git+https://github.com/hyperopt/hyperopt.git
-    'tensorwatch>=0.9.1', 'tensorboard',
-    'pretrainedmodels', 'tqdm', 'sklearn', 'matplotlib', 'psutil',
-    'requests', 'seaborn', 'h5py', 'rarfile',
-    'gorilla', 'pyyaml', 'overrides', 'runstats', 'psutil', 'statopt',
-    'pyunpack', 'patool', 'ray>=1.0.0', 'Send2Trash',
-    'transformers', 'pytorch_lightning', 'tokenizers', 'datasets',
-    # nvidia transformer-xl
-    'dllogger @ git+https://github.com/NVIDIA/dllogger.git',
-    'pytorch-transformers', 'sacremoses', 'pynvml'
+    'numpy', 'torch', 'spacy'
 ]
 
 setuptools.setup(
     name="axformer",
-    version="0.0.0",
+    version="0.0.1",
     author="Shital Shah",
     author_email="sytelus@gmail.com",
     description="Research playground for Transformers",

@@ -1,3 +1,5 @@
+from torch import nn
+from torch.functional import F
 
 class PositionwiseFeedForward(nn.Module):
     "Implements FFN equation."

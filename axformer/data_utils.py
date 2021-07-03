@@ -1,18 +1,21 @@
+import torch
+from torchtext import data, datasets
+
+import spacy
+
+from .batch import Batch
 
 def data_gen(V, batch, nbatches):
     "Generate random data for a src-tgt copy task."
     for i in range(nbatches):
         data = torch.from_numpy(np.random.randint(1, V, size=(batch, 10)))
         data[:, 0] = 1
-        src = Variable(data, requires_grad=False)
-        tgt = Variable(data, requires_grad=False)
+        src = torch.Tensor(data, requires_grad=False)
+        tgt = torch.Tensor(data, requires_grad=False)
         yield Batch(src, tgt, 0)
 
 
-from torchtext import data, datasets
-
-if True:
-    import spacy
+def tokenize_ds():
     spacy_de = spacy.load('de')
     spacy_en = spacy.load('en')
 
@@ -37,6 +40,7 @@ if True:
     MIN_FREQ = 2
     SRC.build_vocab(train.src, min_freq=MIN_FREQ)
     TGT.build_vocab(train.trg, min_freq=MIN_FREQ)
+    return SRC, TGT, train, val, test
 
 class MyIterator(data.Iterator):
     def create_batches(self):

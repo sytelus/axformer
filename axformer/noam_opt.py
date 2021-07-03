@@ -1,3 +1,4 @@
+import torch
 
 class NoamOpt:
     "Optim wrapper that implements rate."

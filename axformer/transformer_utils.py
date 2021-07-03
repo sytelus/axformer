@@ -1,3 +1,22 @@
+from copy import copy
+import math
+
+import numpy as np
+
+import torch
+from torch import nn
+from torch.functional import F
+
+from .multi_head_attention import MultiHeadedAttention
+from .positionwise_feedforward import PositionwiseFeedForward
+from .positional_encoding import PositionalEncoding
+from .encoder import Encoder
+from .decoder import Decoder
+from .encoder_decoder import EncoderDecoder
+from .embeddings import Embeddings
+from .generator import Generator
+from .encoder_layer import EncoderLayer
+from .decoder_layer import DecoderLayer
 
 def clones(module, N):
     "Produce N identical layers."
@@ -42,3 +61,8 @@ def make_model(src_vocab, tgt_vocab, N=6,
         if p.dim() > 1:
             nn.init.xavier_uniform(p)
     return model
+
+def average(model, models):
+    "Average models into model"
+    for ps in zip(*[m.params() for m in [model] + models]):
+        p[0].copy_(torch.sum(*ps[1:]) / len(ps[1:]))

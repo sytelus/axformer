@@ -1,4 +1,6 @@
+import math
 
+import torch
 
 class PositionalEncoding(nn.Module):
     "Implement the PE function."
@@ -17,6 +19,5 @@ class PositionalEncoding(nn.Module):
         self.register_buffer('pe', pe)
 
     def forward(self, x):
-        x = x + Variable(self.pe[:, :x.size(1)],
-                         requires_grad=False)
+        x = x + self.pe[:, :x.size(1)].clone().detach().requires_grad_(False)
         return self.dropout(x)

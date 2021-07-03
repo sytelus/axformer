@@ -1,4 +1,5 @@
-
+from torch import nn
+from torch.functional import F
 
 class Generator(nn.Module):
     "Define standard linear + softmax generation step."

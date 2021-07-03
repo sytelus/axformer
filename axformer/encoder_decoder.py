@@ -1,10 +1,14 @@
+from torch import nn
+from .encoder import Encoder
+from .decoder import Decoder
+
 
 class EncoderDecoder(nn.Module):
     """
     A standard Encoder-Decoder architecture. Base for this and many
     other models.
     """
-    def __init__(self, encoder, decoder, src_embed, tgt_embed, generator):
+    def __init__(self, encoder:Encoder, decoder:Decoder, src_embed, tgt_embed, generator):
         super(EncoderDecoder, self).__init__()
         self.encoder = encoder
         self.decoder = decoder
