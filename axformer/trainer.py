@@ -47,9 +47,10 @@ def batch_size_fn(new, count, sofar, max_src_in_batch, max_tgt_in_batch):
 # Train the simple copy task.
 def toy_train():
     vocab_size, d_model, n_layers = 11, 512, 2
+    model = Axformer(vocab_size, vocab_size, n_layers=n_layers, d_model=d_model)
+
     criterion = LabelSmoothing(size=vocab_size, padding_idx=0, smoothing=0.0)
 
-    model = Axformer(vocab_size, vocab_size, n_layers=n_layers, d_model=d_model)
     model_opt = NoamOpt(d_model, 1, 400,
             torch.optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))
 

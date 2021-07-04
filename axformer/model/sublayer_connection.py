@@ -1,3 +1,6 @@
+from typing import Callable
+
+import torch
 from torch import nn
 
 from axformer.layer_norm import LayerNorm
@@ -12,6 +15,6 @@ class SublayerConnection(nn.Module):
         self.norm = LayerNorm(size)
         self.dropout = nn.Dropout(dropout)
 
-    def forward(self, x, sublayer):
+    def forward(self, x, sublayer:Callable[[torch.Tensor], torch.Tensor]):
         "Apply residual connection to any sublayer with the same size."
         return x + self.dropout(sublayer(self.norm(x)))

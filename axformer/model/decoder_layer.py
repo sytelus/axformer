@@ -1,17 +1,20 @@
+
 from torch import nn
 
 from axformer.model.sublayer_connection import SublayerConnection
 from axformer.transformer_utils import clones
+from axformer.model.positionwise_feedforward import PositionwiseFeedForward
+from axformer.model.multi_head_attention import MultiHeadedAttention
 
 class DecoderLayer(nn.Module):
     "Decoder is made of self-attn, src-attn, and feed forward (defined below)"
-    def __init__(self, size, self_attn, src_attn, feed_forward, dropout):
+    def __init__(self, d_model, self_attn:MultiHeadedAttention, src_attn, feed_forward:PositionwiseFeedForward, dropout:float):
         super(DecoderLayer, self).__init__()
-        self.size = size
+        self.d_model = d_model
         self.self_attn = self_attn
         self.src_attn = src_attn
         self.feed_forward = feed_forward
-        self.sublayer = clones(SublayerConnection(size, dropout), 3)
+        self.sublayer = clones(SublayerConnection(d_model, dropout), 3)
 
     def forward(self, x, memory, src_mask, tgt_mask):
         "Follow Figure 1 (right) for connections."
