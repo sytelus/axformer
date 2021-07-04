@@ -1,17 +1,19 @@
+import numpy as np
+
 import torch
-from torchtext import data, datasets
+from torchtext.legacy import data , datasets
 
 import spacy
 
-from .batch import Batch
+from axformer.batch import Batch
 
-def data_gen(V, batch, nbatches):
+def toy_data_gen(vocab_size, batch_size, nbatches, sentence_size=10):
     "Generate random data for a src-tgt copy task."
     for i in range(nbatches):
-        data = torch.from_numpy(np.random.randint(1, V, size=(batch, 10)))
-        data[:, 0] = 1
-        src = torch.Tensor(data, requires_grad=False)
-        tgt = torch.Tensor(data, requires_grad=False)
+        data = np.random.randint(1, vocab_size, size=(batch_size, sentence_size))
+        data[:, 0] = 1  # start of sentence marker
+        src = torch.tensor(data)
+        tgt = torch.tensor(data)
         yield Batch(src, tgt, 0)
 
 

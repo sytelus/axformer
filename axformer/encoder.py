@@ -1,13 +1,13 @@
 from torch import nn
 
-from .transformer_utils import clones
-from .layer_norm import LayerNorm
+from axformer.transformer_utils import clones
+from axformer.layer_norm import LayerNorm
 
 class Encoder(nn.Module):
-    "Core encoder is a stack of N layers"
-    def __init__(self, layer, N):
+    "Core encoder is a stack of n_layers"
+    def __init__(self, layer, n_layers):
         super(Encoder, self).__init__()
-        self.layers = clones(layer, N)
+        self.layers = clones(layer, n_layers)
         self.norm = LayerNorm(layer.size)
 
     def forward(self, x, mask):

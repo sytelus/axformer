@@ -1,6 +1,6 @@
 from torch import nn
 
-from .layer_norm import LayerNorm
+from axformer.layer_norm import LayerNorm
 
 class SublayerConnection(nn.Module):
     """

@@ -4,7 +4,7 @@ with open("README.md", "r", encoding='utf_8') as fh:
     long_description = fh.read()
 
 install_requires=[
-    'numpy', 'torch', 'spacy'
+    'numpy', 'torch', 'spacy', 'torchtext'
 ]
 
 setuptools.setup(

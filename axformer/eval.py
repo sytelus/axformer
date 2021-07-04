@@ -1,6 +1,6 @@
 import torch
 
-from .transformer_utils import subsequent_mask
+from axformer.transformer_utils import subsequent_mask
 
 def greedy_decode(model, src, src_mask, max_len, start_symbol):
     memory = model.encode(src, src_mask)

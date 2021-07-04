@@ -1,7 +1,7 @@
 from torch import nn
 
-from .sublayer_connection import SublayerConnection
-from .transformer_utils import clones
+from axformer.sublayer_connection import SublayerConnection
+from axformer.transformer_utils import clones
 
 class EncoderLayer(nn.Module):
     "Encoder is made up of self-attn and feed forward (defined below)"

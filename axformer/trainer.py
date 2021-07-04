@@ -4,12 +4,12 @@ from typing import List
 import torch
 from torch import nn
 
-from .label_smoothing import LabelSmoothing
-from .transformer_utils import make_model
-from .noam_opt import NoamOpt
-from .simple_loss_compute import SimpleLossCompute
-from .data_utils import data_gen, MyIterator, rebatch
-from .multi_gpu_loss_compute import MultiGPULossCompute
+from axformer.label_smoothing import LabelSmoothing
+from axformer.model import make_model
+from axformer.noam_opt import NoamOpt
+from axformer.simple_loss_compute import SimpleLossCompute
+from axformer.data_utils import toy_data_gen, MyIterator, rebatch
+from axformer.multi_gpu_loss_compute import MultiGPULossCompute
 
 def run_epoch(data_iter, model, loss_compute):
     "Standard Training and Logging Function"
@@ -45,19 +45,20 @@ def batch_size_fn(new, count, sofar, max_src_in_batch, max_tgt_in_batch):
 
 
 # Train the simple copy task.
-def train_copy_task():
-    V = 11
-    criterion = LabelSmoothing(size=V, padding_idx=0, smoothing=0.0)
-    model = make_model(V, V, N=2)
-    model_opt = NoamOpt(model.src_embed[0].d_model, 1, 400,
+def toy_train():
+    vocab_size, d_model, n_layers = 11, 512, 2
+    criterion = LabelSmoothing(size=vocab_size, padding_idx=0, smoothing=0.0)
+
+    model = make_model(vocab_size, vocab_size, n_layers=n_layers, d_model=d_model)
+    model_opt = NoamOpt(d_model, 1, 400,
             torch.optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))
 
     for epoch in range(10):
         model.train()
-        run_epoch(data_gen(V, 30, 20), model,
+        run_epoch(toy_data_gen(vocab_size, batch_size=30, nbatches=20), model,
                 SimpleLossCompute(model.generator, criterion, model_opt))
         model.eval()
-        print(run_epoch(data_gen(V, 30, 5), model,
+        print(run_epoch(toy_data_gen(vocab_size, batch_size=30, nbatches=5), model,
                         SimpleLossCompute(model.generator, criterion, None)))
 
 def create_iterators(devices:List[int], SRC, TGT, train, val):

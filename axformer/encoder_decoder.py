@@ -1,6 +1,6 @@
 from torch import nn
-from .encoder import Encoder
-from .decoder import Decoder
+from axformer.encoder import Encoder
+from axformer.decoder import Decoder
 
 
 class EncoderDecoder(nn.Module):
