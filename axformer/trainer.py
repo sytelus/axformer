@@ -5,7 +5,7 @@ import torch
 from torch import nn
 
 from axformer.label_smoothing import LabelSmoothing
-from axformer.model import make_model
+from axformer.model.axformer import Axformer
 from axformer.noam_opt import NoamOpt
 from axformer.simple_loss_compute import SimpleLossCompute
 from axformer.data_utils import toy_data_gen, MyIterator, rebatch
@@ -49,7 +49,7 @@ def toy_train():
     vocab_size, d_model, n_layers = 11, 512, 2
     criterion = LabelSmoothing(size=vocab_size, padding_idx=0, smoothing=0.0)
 
-    model = make_model(vocab_size, vocab_size, n_layers=n_layers, d_model=d_model)
+    model = Axformer(vocab_size, vocab_size, n_layers=n_layers, d_model=d_model)
     model_opt = NoamOpt(d_model, 1, 400,
             torch.optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))
 
@@ -63,7 +63,7 @@ def toy_train():
 
 def create_iterators(devices:List[int], SRC, TGT, train, val):
     pad_idx = TGT.vocab.stoi["<blank>"]
-    model = make_model(len(SRC.vocab), len(TGT.vocab), N=6)
+    model = Axformer(len(SRC.vocab), len(TGT.vocab), n_layers=6)
     model.cuda()
     criterion = LabelSmoothing(size=len(TGT.vocab), padding_idx=pad_idx, smoothing=0.1)
     criterion.cuda()

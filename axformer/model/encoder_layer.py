@@ -1,6 +1,6 @@
 from torch import nn
 
-from axformer.sublayer_connection import SublayerConnection
+from axformer.model.sublayer_connection import SublayerConnection
 from axformer.transformer_utils import clones
 
 class EncoderLayer(nn.Module):
