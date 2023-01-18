@@ -2,8 +2,6 @@
 
 Axformer is a playground for transformers.
 
-[Extensive feature list](docs/features.md)
-
 ## Installation
 
 ### Prerequisites
@@ -17,7 +15,7 @@ We recommend installing from the source code:
 ```bash
 git clone https://github.com/sytelus/axformer.git
 cd axformer
-install.sh # on Windows, use install.bat
+pip install -e .
 ```
 
 ## License

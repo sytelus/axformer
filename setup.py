@@ -4,12 +4,13 @@ with open("README.md", "r", encoding='utf_8') as fh:
     long_description = fh.read()
 
 install_requires=[
-    'numpy', 'torch', 'spacy', 'torchtext', 'pytorch_memlab'
+    'spacy', # used for tokenizing multiligual text
+    'torchtext' # not included with Pytorch by default
 ]
 
 setuptools.setup(
     name="axformer",
-    version="0.0.1",
+    version="0.1.0",
     author="Shital Shah",
     author_email="sytelus@gmail.com",
     description="Research playground for Transformers",

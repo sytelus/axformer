@@ -1,7 +1,7 @@
 import numpy as np
 
 import torch
-from torchtext.legacy import data , datasets
+from torchtext import data , datasets
 
 import spacy
 
